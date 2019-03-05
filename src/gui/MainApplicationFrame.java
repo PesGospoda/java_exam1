@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.security.MessageDigest;
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 
 import log.Logger;
 
@@ -26,7 +27,7 @@ public class MainApplicationFrame extends JFrame {
                 screenSize.height - inset * 2);
 
         setContentPane(desktopPane);
-
+        localization();
 
         LogWindow logWindow = createLogWindow();
         addWindow(logWindow);
@@ -38,7 +39,7 @@ public class MainApplicationFrame extends JFrame {
         addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
-                JOptionPane.showMessageDialog(null, "Добро пожаловать, петушок.");
+                //JOptionPane.showMessageDialog(null, "Добро пожаловать, петушок.");
             }
 
             @Override
@@ -122,11 +123,18 @@ public class MainApplicationFrame extends JFrame {
     }
 
     private void close() {
-        int res = JOptionPane.showConfirmDialog(null, "Выйти из программы?");
+        int res = JOptionPane.showConfirmDialog(null, "Выйти из программы?" );
         if (res == JOptionPane.YES_OPTION)
             System.exit(0); // ToDo smth else mb
         if (res == JOptionPane.NO_OPTION)
             JOptionPane.showMessageDialog(null, "Вот и правильно петушок");
+    }
+
+    private void localization (){
+        UIManager.put("OptionPane.yesButtonText"   , "Да"    );
+        UIManager.put("OptionPane.noButtonText"    , "Нет"   );
+        UIManager.put("OptionPane.cancelButtonText", "Отмена");
+        UIManager.put("OptionPane.okButtonText"    , "Готово");
     }
 
     private JMenu createJMenu(String text, int key, String description) {
