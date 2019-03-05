@@ -13,7 +13,7 @@ import java.util.Queue;
  * величиной m_iQueueLength (т.е. реально нужна очередь сообщений
  * ограниченного размера)
  */
-public class LogWindowSource{
+public class LogWindowSource {
     private int m_iQueueLength;
     //private ArrayList<LogEntry> m_messages;
     private FixedSizeQueue<LogEntry> m_messages;
