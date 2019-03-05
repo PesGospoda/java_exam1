@@ -1,5 +1,7 @@
 package log;
 
 public interface LogChangeListener {
-    public void onLogChanged();
+    void onLogChanged();
+    void close();
+    boolean on = true;
 }

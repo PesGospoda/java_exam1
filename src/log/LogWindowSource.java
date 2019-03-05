@@ -13,18 +13,18 @@ import java.util.Queue;
  * величиной m_iQueueLength (т.е. реально нужна очередь сообщений
  * ограниченного размера)
  */
-public class LogWindowSource {
+public class LogWindowSource{
     private int m_iQueueLength;
-    private ArrayList<LogEntry> m_messages;
-    //private FixedSizeQueue<LogEntry> m_messages;
+    //private ArrayList<LogEntry> m_messages;
+    private FixedSizeQueue<LogEntry> m_messages;
     private final ArrayList<LogChangeListener> m_listeners;
     private volatile LogChangeListener[] m_activeListeners;
 
     public LogWindowSource(int iQueueLength) {
         m_iQueueLength = iQueueLength;
         m_listeners = new ArrayList<LogChangeListener>();
-        m_messages = new ArrayList<LogEntry>(iQueueLength);
-        //FixedSizeQueue<LogEntry> m_messages = new FixedSizeQueue<LogEntry>(m_iQueueLength);
+        //m_messages = new ArrayList<LogEntry>(iQueueLength);
+        m_messages = new FixedSizeQueue<LogEntry>(m_iQueueLength);
     }
 
     public void registerListener(LogChangeListener listener) {
@@ -41,7 +41,6 @@ public class LogWindowSource {
         }
     }
 
-    //??? ToDo тут чето делать надо наверное
     public void append(LogLevel logLevel, String strMessage) {
         LogEntry entry = new LogEntry(logLevel, strMessage);
         m_messages.add(entry);

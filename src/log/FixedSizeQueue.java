@@ -7,8 +7,7 @@ public class FixedSizeQueue<E> implements Queue<E> {
     private int max_Size;
     private ArrayDeque<E> queue;
 
-    public FixedSizeQueue(int maxSize)
-    {
+    public FixedSizeQueue(int maxSize) {
         max_Size = maxSize;
         queue = new ArrayDeque<E>(max_Size);
     }
@@ -45,7 +44,7 @@ public class FixedSizeQueue<E> implements Queue<E> {
 
     @Override
     public boolean add(E e) {
-        if (queue.size()==max_Size)
+        if (queue.size() == max_Size)
             queue.poll();
         return queue.add(e);
     }
@@ -106,15 +105,13 @@ public class FixedSizeQueue<E> implements Queue<E> {
         return queue.peek();
     }
 
-    public ArrayList<E> subList(int start, int end){//ToDo здесь могут быть некорректные значения нужно обрабатывать
+    public ArrayList<E> subList(int start, int end) {//ToDo здесь могут быть некорректные значения нужно обрабатывать
         ArrayList<E> outList = new ArrayList<E>();
         ArrayDeque<E> tempQueue = queue.clone();
-        for(int i = 0; i<start;i++)
-        {
+        for (int i = 0; i < start; i++) {
             tempQueue.poll();
         }
-        for(int i = start; i<end; i++)
-        {
+        for (int i = start; i < end; i++) {
             outList.add(tempQueue.poll());
         }
         return outList;

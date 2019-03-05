@@ -1,7 +1,7 @@
 package gui;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JDesktopPane;
@@ -94,9 +94,7 @@ public class MainApplicationFrame extends JFrame {
     private JMenuBar generateMenuBar() {
         JMenuBar menuBar = new JMenuBar();
 
-        JMenu lookAndFeelMenu = new JMenu("Режим отображения");
-        lookAndFeelMenu.setMnemonic(KeyEvent.VK_V);
-        lookAndFeelMenu.getAccessibleContext().setAccessibleDescription(
+        JMenu lookAndFeelMenu = createJMenu("Режим отображения", KeyEvent.VK_V,
                 "Управление режимом отображения приложения");
 
         {
@@ -117,10 +115,7 @@ public class MainApplicationFrame extends JFrame {
             lookAndFeelMenu.add(crossplatformLookAndFeel);
         }
 
-        JMenu testMenu = new JMenu("Тесты");
-        testMenu.setMnemonic(KeyEvent.VK_T);
-        testMenu.getAccessibleContext().setAccessibleDescription(
-                "Тестовые команды");
+        JMenu testMenu = createJMenu("Тесты", KeyEvent.VK_T,"Тестовые команды" );
 
         {
             JMenuItem addLogMessageItem = new JMenuItem("Сообщение в лог", KeyEvent.VK_S);
@@ -133,6 +128,19 @@ public class MainApplicationFrame extends JFrame {
         menuBar.add(lookAndFeelMenu);
         menuBar.add(testMenu);
         return menuBar;
+    }
+
+    private JMenu createJMenu(String text, int key, String description){
+        JMenu menu = new JMenu(text);
+        menu.setMnemonic(key);
+        menu.getAccessibleContext().setAccessibleDescription(description);
+        return menu;
+    }
+
+    private JMenuItem createMenuItem( String text,int key, ActionListener smt){
+        JMenuItem item = new JMenuItem(text, key);
+        item.addActionListener(smt);
+        return item;
     }
 
     private void setLookAndFeel(String className) {
