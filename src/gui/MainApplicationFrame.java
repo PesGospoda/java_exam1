@@ -1,9 +1,8 @@
 package gui;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
+import java.security.MessageDigest;
 
 import javax.swing.*;
 
@@ -36,8 +35,46 @@ public class MainApplicationFrame extends JFrame {
         gameWindow.setSize(400, 400);
         addWindow(gameWindow);
 
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+                JOptionPane.showMessageDialog(null, "Добро пожаловать, петушок.");
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                close();
+            }
+
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+            }
+
+        });
         setJMenuBar(generateMenuBar());
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+
     }
 
     protected LogWindow createLogWindow() {
@@ -75,13 +112,21 @@ public class MainApplicationFrame extends JFrame {
         JMenu testMenu = createJMenu("Тесты", KeyEvent.VK_T, "Тестовые команды");
         testMenu.add(createMenuItem("Message in log", KeyEvent.VK_S, (event) -> Logger.debug("New String")));
 
-        JMenu systemMenu = createJMenu("system", KeyEvent.VK_Y, "system comands");
-        systemMenu.add(createMenuItem("Exit", KeyEvent.VK_E, (event) -> System.exit(0)));
+        JMenu systemMenu = createJMenu("system", KeyEvent.VK_Y, "system commands");
+        systemMenu.add(createMenuItem("Exit", KeyEvent.VK_E, (event) -> close()));
 
         menuBar.add(lookAndFeelMenu);
         menuBar.add(testMenu);
         menuBar.add(systemMenu);
         return menuBar;
+    }
+
+    private void close() {
+        int res = JOptionPane.showConfirmDialog(null, "Выйти из программы?");
+        if (res == JOptionPane.YES_OPTION)
+            System.exit(0); // ToDo smth else mb
+        if (res == JOptionPane.NO_OPTION)
+            JOptionPane.showMessageDialog(null, "Вот и правильно петушок");
     }
 
     private JMenu createJMenu(String text, int key, String description) {

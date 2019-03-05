@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="230635cb-e89b-4dc2-9cbf-f9208d59510f" name="Default Changelist" comment="commit0.2">
-      <change beforePath="$PROJECT_DIR$/src/gui/GameCore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/GameCore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/GameVisualizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/GameVisualizer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/MainApplicationFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/MainApplicationFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/log/LogChangeListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/log/LogChangeListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/log/LogWindowSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/log/LogWindowSource.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,15 +13,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/gui/GameWindow.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="19" selection-start-line="19" selection-end-line="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/log/Logger.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -44,26 +31,30 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/gui/GameVisualizer.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/gui/MainApplicationFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="59" column="54" selection-start-line="59" selection-start-column="54" selection-end-line="59" selection-end-column="54" />
+            <state relative-caret-position="1219">
+              <caret line="120" lean-forward="true" selection-start-line="120" selection-end-line="120" />
               <folding>
-                <element signature="e#1348#1349#0" expanded="true" />
-                <element signature="e#1401#1402#0" expanded="true" />
-                <element signature="e#1451#1452#0" expanded="true" />
-                <element signature="e#1492#1493#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="method#windowClosed#0;class#1077:1781" />
+                <element signature="method#windowIconified#0;class#1077:2043" />
+                <element signature="method#createLogWindow#0;class#MainApplicationFrame#0" />
+                <element signature="method#addWindow#0;class#MainApplicationFrame#0" />
+                <element signature="method#createJMenu#0;class#MainApplicationFrame#0" />
+                <element signature="method#createMenuItem#0;class#MainApplicationFrame#0" />
+                <element signature="method#setLookAndFeel#0;class#MainApplicationFrame#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/log/LogWindowSource.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="34" column="5" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+            <state relative-caret-position="-549">
+              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
             </state>
           </provider>
         </entry>
@@ -130,11 +121,11 @@
       <list>
         <option value="$PROJECT_DIR$/src/log/FixedSizeQueue.java" />
         <option value="$PROJECT_DIR$/src/gui/LogWindow.java" />
-        <option value="$PROJECT_DIR$/src/gui/MainApplicationFrame.java" />
         <option value="$PROJECT_DIR$/src/gui/GameVisualizer.java" />
         <option value="$PROJECT_DIR$/src/gui/GameCore.java" />
         <option value="$PROJECT_DIR$/src/log/LogChangeListener.java" />
         <option value="$PROJECT_DIR$/src/log/LogWindowSource.java" />
+        <option value="$PROJECT_DIR$/src/gui/MainApplicationFrame.java" />
       </list>
     </option>
   </component>
@@ -237,12 +228,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1551075879636</updated>
-      <workItem from="1551772810585" duration="2212000" />
+      <workItem from="1551772810585" duration="3888000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7783000" />
+    <option name="totallyTimeSpent" value="9459000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -257,7 +248,7 @@
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2647504" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2647504" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -268,7 +259,7 @@
       <window_info anchor="bottom" id="Database Changes" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32850242" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32850242" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32850242" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -301,21 +292,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1768">
           <caret line="137" column="17" selection-start-line="137" selection-start-column="17" selection-end-line="137" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/MainApplicationFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="63" column="23" selection-start-line="63" selection-start-column="23" selection-end-line="63" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3224#3294#0" />
-            <element signature="e#3439#3491#0" />
-            <element signature="method#createJMenu#0;class#MainApplicationFrame#0" />
-            <element signature="method#createMenuItem#0;class#MainApplicationFrame#0" />
-            <element signature="method#setLookAndFeel#0;class#MainApplicationFrame#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -401,8 +377,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/log/LogWindowSource.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="34" column="5" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+        <state relative-caret-position="-549">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.desktop/java/awt/event/ActionListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="50" column="16" selection-start-line="50" selection-start-column="16" selection-end-line="50" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gui/MainApplicationFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1219">
+          <caret line="120" lean-forward="true" selection-start-line="120" selection-end-line="120" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#windowClosed#0;class#1077:1781" />
+            <element signature="method#windowIconified#0;class#1077:2043" />
+            <element signature="method#createLogWindow#0;class#MainApplicationFrame#0" />
+            <element signature="method#addWindow#0;class#MainApplicationFrame#0" />
+            <element signature="method#createJMenu#0;class#MainApplicationFrame#0" />
+            <element signature="method#createMenuItem#0;class#MainApplicationFrame#0" />
+            <element signature="method#setLookAndFeel#0;class#MainApplicationFrame#0" />
+          </folding>
         </state>
       </provider>
     </entry>
