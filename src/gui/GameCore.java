@@ -41,12 +41,27 @@ public class GameCore {
         double velocity = maxVelocity;
         double angleToTarget = angleTo(m_robotPositionX, m_robotPositionY, m_targetPositionX, m_targetPositionY);
         double angularVelocity = 0;
-        if (angleToTarget > m_robotDirection) {
+        //if (angleToTarget > m_robotDirection) {
+        //    angularVelocity = maxAngularVelocity;
+        //}
+        //if (angleToTarget < m_robotDirection) {
+        //    angularVelocity = -maxAngularVelocity;
+        //}
+        double angleBetweenTargetRobot = asNormalizedRadians(angleToTarget - m_robotDirection);
+        if (angleBetweenTargetRobot < Math.PI) {
             angularVelocity = maxAngularVelocity;
         }
-        if (angleToTarget < m_robotDirection) {
+        else {
             angularVelocity = -maxAngularVelocity;
         }
+        if (Math.abs(angleBetweenTargetRobot)<0.1) {
+            velocity = maxVelocity;
+        }
+        else {
+            velocity = distance * angularVelocity / 2;
+        }
+            //while (distance<velocity*2/angularVelocity)
+            //    velocity = velocity/2;
 
         moveRobot(velocity, angularVelocity, 10);
     }
