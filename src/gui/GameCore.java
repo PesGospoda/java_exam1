@@ -58,7 +58,7 @@ public class GameCore {
             velocity = maxVelocity;
         }
         else {
-            velocity = distance * angularVelocity / 2;
+            velocity = distance * Math.abs(angularVelocity) / 2;
         }
             //while (distance<velocity*2/angularVelocity)
             //    velocity = velocity/2;
