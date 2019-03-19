@@ -127,7 +127,7 @@ public class MainApplicationFrame extends JFrame {
         if (res == JOptionPane.YES_OPTION)
             System.exit(0); // ToDo smth else mb
         if (res == JOptionPane.NO_OPTION)
-            JOptionPane.showMessageDialog(null, "Вот и правильно петушок");
+            JOptionPane.showMessageDialog(null, "Возврат в программу");
     }
 
     private void localization (){
