@@ -1,7 +1,8 @@
 package gui;
-
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.security.MessageDigest;
 
 import javax.swing.*;
@@ -9,17 +10,12 @@ import javax.swing.text.JTextComponent;
 
 import log.Logger;
 
-/**
- * Что требуется сделать:
- * 1. Метод создания меню перегружен функционалом и трудно читается.
- * Следует разделить его на серию более простых методов (или вообще выделить отдельный класс).
- */
+
 public class MainApplicationFrame extends JFrame {
     private final JDesktopPane desktopPane = new JDesktopPane();
+    private final GameWindow gameWindow = new GameWindow();
 
     public MainApplicationFrame() {
-        //Make the big window be indented 50 pixels from each edge
-        //of the screen.
         int inset = 50;
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setBounds(inset, inset,
@@ -32,10 +28,9 @@ public class MainApplicationFrame extends JFrame {
         LogWindow logWindow = createLogWindow();
         addWindow(logWindow);
 
-        GameWindow gameWindow = new GameWindow();
+        //GameWindow gameWindow = new GameWindow();
         gameWindow.setSize(400, 400);
         addWindow(gameWindow);
-
         addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
@@ -98,12 +93,10 @@ public class MainApplicationFrame extends JFrame {
 
         JMenu lookAndFeelMenu = createJMenu("Режим отображения", KeyEvent.VK_V,
                 "Управление режимом отображения приложения");
-
         lookAndFeelMenu.add(createMenuItem("System sheme", KeyEvent.VK_S, (event) -> {
             setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             this.invalidate();
         }));
-
         lookAndFeelMenu.add(createMenuItem("Universal sheme", KeyEvent.VK_S, (event) -> {
             setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
             this.invalidate();
@@ -113,28 +106,47 @@ public class MainApplicationFrame extends JFrame {
         JMenu testMenu = createJMenu("Тесты", KeyEvent.VK_T, "Тестовые команды");
         testMenu.add(createMenuItem("Message in log", KeyEvent.VK_S, (event) -> Logger.debug("New String")));
 
+
         JMenu systemMenu = createJMenu("system", KeyEvent.VK_Y, "system commands");
         systemMenu.add(createMenuItem("Exit", KeyEvent.VK_E, (event) -> close()));
+
+        JMenu robotsMenu = createJMenu("Robots", KeyEvent.VK_Y, "robot option ");
+        robotsMenu.add(createMenuItem("Standard", KeyEvent.VK_S, (event) -> gameWindow.getVisualizer().setRobot(new Robot())));
+        //в лямбде надо наверное метод сделать который будет нужный файл открывать и из него робота пихать в сет робот
+        robotsMenu.add(createMenuItem("With Bug", KeyEvent.VK_S, (event) -> gameWindow.getVisualizer().setRobot(new RobotB())));
+        robotsMenu.add(createMenuItem("Smt else...", KeyEvent.VK_E, (event) -> gameWindow.getVisualizer().setRobot(chooseFile())));
+
 
         menuBar.add(lookAndFeelMenu);
         menuBar.add(testMenu);
         menuBar.add(systemMenu);
+        menuBar.add(robotsMenu);
         return menuBar;
     }
 
+    private Robot chooseFile(){
+        JFileChooser fileopen = new JFileChooser();
+        int ret = fileopen.showDialog(null, "Открыть файл");
+        if (ret == JFileChooser.APPROVE_OPTION) {
+            File file = fileopen.getSelectedFile();
+            //ну вот его как то откроешь и вытащишь робота или файл можеш возвращать хз
+        }
+        return new Robot();
+    }
+
     private void close() {
-        int res = JOptionPane.showConfirmDialog(null, "Выйти из программы?" );
+        int res = JOptionPane.showConfirmDialog(null, "Выйти из программы?");
         if (res == JOptionPane.YES_OPTION)
             System.exit(0); // ToDo smth else mb
         if (res == JOptionPane.NO_OPTION)
             JOptionPane.showMessageDialog(null, "Возврат в программу");
     }
 
-    private void localization (){
-        UIManager.put("OptionPane.yesButtonText"   , "Да"    );
-        UIManager.put("OptionPane.noButtonText"    , "Нет"   );
+    private void localization() {
+        UIManager.put("OptionPane.yesButtonText", "Да");
+        UIManager.put("OptionPane.noButtonText", "Нет");
         UIManager.put("OptionPane.cancelButtonText", "Отмена");
-        UIManager.put("OptionPane.okButtonText"    , "Готово");
+        UIManager.put("OptionPane.okButtonText", "Готово");
     }
 
     private JMenu createJMenu(String text, int key, String description) {

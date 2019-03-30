@@ -8,6 +8,10 @@ import javax.swing.JPanel;
 public class GameWindow extends JInternalFrame {
     private final GameVisualizer m_visualizer;
 
+    public GameVisualizer getVisualizer() {
+        return m_visualizer;
+    }
+
     public GameWindow() {
         super("Игровое поле", true, true, true, true);
         m_visualizer = new GameVisualizer();
