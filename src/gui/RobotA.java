@@ -2,16 +2,7 @@ package gui;
 
 import java.awt.*;
 
-public class Robot implements IUpdated{
-    public volatile double m_robotPositionX = 100;// потом сделаю геттеры
-    public volatile double m_robotPositionY = 100;
-    public volatile double m_robotDirection = 0;
-
-    public volatile int m_targetPositionX = 150;
-    public volatile int m_targetPositionY = 100;
-
-    protected static final double maxVelocity = 0.1;
-    protected static final double maxAngularVelocity = 0.001;
+public class RobotA implements IUpdated{
 
     protected static double distance(double x1, double y1, double x2, double y2) {
         double diffX = x1 - x2;
@@ -26,11 +17,6 @@ public class Robot implements IUpdated{
         return asNormalizedRadians(Math.atan2(diffY, diffX));
     }
 
-    protected void setTargetPosition(Point p) {
-        m_targetPositionX = p.x;
-        m_targetPositionY = p.y;
-    }
-
     protected static double applyLimits(double value, double min, double max) {
         if (value < min)
             return min;
@@ -39,26 +25,26 @@ public class Robot implements IUpdated{
         return value;
     }
 
-    protected void moveRobot(double velocity, double angularVelocity, double duration) {
-        velocity = applyLimits(velocity, 0, maxVelocity);
-        angularVelocity = applyLimits(angularVelocity, -maxAngularVelocity, maxAngularVelocity);
-        double newX = m_robotPositionX + velocity / angularVelocity *
-                (Math.sin(m_robotDirection + angularVelocity * duration) -
-                        Math.sin(m_robotDirection));
+    protected void moveRobot(Robot robot) {
+        robot.velocity = applyLimits(robot.velocity, 0, robot.maxVelocity);
+        robot.angularVelocity = applyLimits(robot.angularVelocity, -robot.maxAngularVelocity, robot.maxAngularVelocity);
+        double newX = robot.m_robotPositionX + robot.velocity / robot.angularVelocity *
+                (Math.sin(robot.m_robotDirection + robot.angularVelocity * robot.duration) -
+                        Math.sin(robot.m_robotDirection));
         if (!Double.isFinite(newX)) {
-            newX = m_robotPositionX + velocity * duration * Math.cos(m_robotDirection);
+            newX = robot.m_robotPositionX + robot.velocity * robot.duration * Math.cos(robot.m_robotDirection);
         }
-        double newY = m_robotPositionY - velocity / angularVelocity *
-                (Math.cos(m_robotDirection + angularVelocity * duration) -
-                        Math.cos(m_robotDirection));
+        double newY = robot.m_robotPositionY - robot.velocity / robot.angularVelocity *
+                (Math.cos(robot.m_robotDirection + robot.angularVelocity * robot.duration) -
+                        Math.cos(robot.m_robotDirection));
 
         if (!Double.isFinite(newY)) {
-            newY = m_robotPositionY + velocity * duration * Math.sin(m_robotDirection);
+            newY = robot.m_robotPositionY + robot.velocity * robot.duration * Math.sin(robot.m_robotDirection);
         }
-        m_robotPositionX = newX;
-        m_robotPositionY = newY;
-        double newDirection = asNormalizedRadians(m_robotDirection + angularVelocity * duration);
-        m_robotDirection = newDirection;
+        robot.m_robotPositionX = newX;
+        robot.m_robotPositionY = newY;
+        double newDirection = asNormalizedRadians(robot.m_robotDirection + robot.angularVelocity * robot.duration);
+        robot.m_robotDirection = newDirection;
     }
 
     protected static double asNormalizedRadians(double angle) {
@@ -72,36 +58,36 @@ public class Robot implements IUpdated{
     }
 
     @Override
-    public void onModelUpdateEvent() {
-        double distance = distance(m_targetPositionX, m_targetPositionY,
-                m_robotPositionX, m_robotPositionY);
+    public void onModelUpdateEvent(Robot robot) {
+        double distance = distance(robot.m_targetPositionX, robot.m_targetPositionY,
+                robot.m_robotPositionX, robot.m_robotPositionY);
         if (distance < 0.5) {
             return;
         }
-        double velocity = maxVelocity;
-        double angleToTarget = angleTo(m_robotPositionX, m_robotPositionY, m_targetPositionX, m_targetPositionY);
-        double angularVelocity = 0;
-        double angleBetweenTargetRobot = asNormalizedRadians(angleToTarget - m_robotDirection);
+        robot.velocity = robot.maxVelocity;
+        double angleToTarget = angleTo(robot.m_robotPositionX, robot.m_robotPositionY, robot.m_targetPositionX, robot.m_targetPositionY);
+        robot.angularVelocity = 0;
+        double angleBetweenTargetRobot = asNormalizedRadians(angleToTarget - robot.m_robotDirection);
         if (angleBetweenTargetRobot < Math.PI) {
-            angularVelocity = maxAngularVelocity;
+            robot.angularVelocity = robot.maxAngularVelocity;
         }
         else {
-            angularVelocity = -maxAngularVelocity;
+            robot.angularVelocity = -robot.maxAngularVelocity;
         }
         if (Math.abs(angleBetweenTargetRobot)<0.1) {
-            velocity = maxVelocity;
+            robot.velocity = robot.maxVelocity;
         }
         else {
-            velocity = distance * Math.abs(angularVelocity) / 2;
+            robot.velocity = distance * Math.abs(robot.angularVelocity) / 2;
         }
-        moveRobot(velocity, angularVelocity, 10);
+        moveRobot(robot);
     }
 
-    public void clone(Robot other){
-        m_robotPositionX = other.m_robotPositionX;
-        m_robotDirection = other.m_robotDirection;
-        m_robotPositionY = other.m_robotPositionY;
-        m_targetPositionX = other.m_targetPositionX;
-        m_targetPositionY = other.m_targetPositionY;
-    }
+    //public void clone(RobotA other){
+    //    m_robotPositionX = other.m_robotPositionX;
+    //    m_robotDirection = other.m_robotDirection;
+     //   m_robotPositionY = other.m_robotPositionY;
+     //   m_targetPositionX = other.m_targetPositionX;
+    //    m_targetPositionY = other.m_targetPositionY;
+    //}
 }

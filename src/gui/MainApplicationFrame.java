@@ -1,12 +1,9 @@
 package gui;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
-import java.security.MessageDigest;
 
 import javax.swing.*;
-import javax.swing.text.JTextComponent;
 
 import log.Logger;
 
@@ -111,10 +108,10 @@ public class MainApplicationFrame extends JFrame {
         systemMenu.add(createMenuItem("Exit", KeyEvent.VK_E, (event) -> close()));
 
         JMenu robotsMenu = createJMenu("Robots", KeyEvent.VK_Y, "robot option ");
-        robotsMenu.add(createMenuItem("Standard", KeyEvent.VK_S, (event) -> gameWindow.getVisualizer().setRobot(new Robot())));
+        robotsMenu.add(createMenuItem("Standard", KeyEvent.VK_S, (event) -> gameWindow.getVisualizer().setRobot(new Robot(new RobotA()))));
         //в лямбде надо наверное метод сделать который будет нужный файл открывать и из него робота пихать в сет робот
-        robotsMenu.add(createMenuItem("With Bug", KeyEvent.VK_S, (event) -> gameWindow.getVisualizer().setRobot(new RobotB())));
-        robotsMenu.add(createMenuItem("Smt else...", KeyEvent.VK_E, (event) -> gameWindow.getVisualizer().setRobot(chooseFile())));
+        robotsMenu.add(createMenuItem("With Bug", KeyEvent.VK_S, (event) -> gameWindow.getVisualizer().setRobot(new Robot(new RobotAB()))));
+        //robotsMenu.add(createMenuItem("Smt else...", KeyEvent.VK_E, (event) -> gameWindow.getVisualizer().setRobot(chooseFile())));
 
 
         menuBar.add(lookAndFeelMenu);
@@ -124,14 +121,14 @@ public class MainApplicationFrame extends JFrame {
         return menuBar;
     }
 
-    private Robot chooseFile(){
+    private RobotA chooseFile(){
         JFileChooser fileopen = new JFileChooser();
         int ret = fileopen.showDialog(null, "Открыть файл");
         if (ret == JFileChooser.APPROVE_OPTION) {
             File file = fileopen.getSelectedFile();
             //ну вот его как то откроешь и вытащишь робота или файл можеш возвращать хз
         }
-        return new Robot();
+        return new RobotA();
     }
 
     private void close() {

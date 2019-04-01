@@ -1,5 +1,5 @@
 package gui;
 
 public interface IUpdated{
-    void onModelUpdateEvent();
+    void onModelUpdateEvent(Robot robot);
 }
