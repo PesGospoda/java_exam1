@@ -108,9 +108,9 @@ public class MainApplicationFrame extends JFrame {
         systemMenu.add(createMenuItem("Exit", KeyEvent.VK_E, (event) -> close()));
 
         JMenu robotsMenu = createJMenu("Robots", KeyEvent.VK_Y, "robot option ");
-        robotsMenu.add(createMenuItem("Standard", KeyEvent.VK_S, (event) -> gameWindow.getVisualizer().setRobot(new Robot(new RobotA()))));
+        robotsMenu.add(createMenuItem("Standard", KeyEvent.VK_S, (event) -> gameWindow.getVisualizer().setRobot(new Robot(new RobotBehavior(a->RobotA.onModelUpdateEvent(a))))));
         //в лямбде надо наверное метод сделать который будет нужный файл открывать и из него робота пихать в сет робот
-        robotsMenu.add(createMenuItem("With Bug", KeyEvent.VK_S, (event) -> gameWindow.getVisualizer().setRobot(new Robot(new RobotAB()))));
+        robotsMenu.add(createMenuItem("With Bug", KeyEvent.VK_S, (event) -> gameWindow.getVisualizer().setRobot(new Robot(new RobotBehavior(a->RobotAB.onModelUpdateEvent(a))))));
         //robotsMenu.add(createMenuItem("Smt else...", KeyEvent.VK_E, (event) -> gameWindow.getVisualizer().setRobot(chooseFile())));
 
 

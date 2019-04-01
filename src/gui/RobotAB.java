@@ -2,7 +2,7 @@ package gui;
 
 import java.awt.*;
 
-public class RobotAB implements IUpdated {
+public class RobotAB {
 
     protected static double distance(double x1, double y1, double x2, double y2) {
         double diffX = x1 - x2;
@@ -36,7 +36,7 @@ public class RobotAB implements IUpdated {
         return value;
     }
 
-    protected void moveRobot(Robot robot) {
+    protected static void moveRobot(Robot robot) {
         robot.velocity = applyLimits(robot.velocity, 0, robot.maxVelocity);
         robot.angularVelocity = applyLimits(robot.angularVelocity, -robot.maxAngularVelocity, robot.maxAngularVelocity);
         double newX = robot.m_robotPositionX + robot.velocity / robot.angularVelocity *
@@ -57,7 +57,7 @@ public class RobotAB implements IUpdated {
         double newDirection = asNormalizedRadians(robot.m_robotDirection + robot.angularVelocity * robot.duration);
         robot.m_robotDirection = newDirection;
     }
-    public void onModelUpdateEvent(Robot robot) {
+    public static void onModelUpdateEvent(Robot robot) {
         double distance = distance(robot.m_targetPositionX, robot.m_targetPositionY,
                 robot.m_robotPositionX, robot.m_robotPositionY);
         if (distance < 0.5) {

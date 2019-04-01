@@ -14,16 +14,21 @@ public class Robot {
     public volatile double velocity = 0;
     public volatile double angularVelocity = 0;
 
-    public volatile IUpdated behavior;
+    //public volatile IUpdated behavior;
+    public volatile RobotBehavior behavior_2;
 
     public static final int duration = 10;
 
     public static final double maxVelocity = 0.1;
     public static final double maxAngularVelocity = 0.001;
 
-    public Robot(IUpdated behavior)
-    {
-        this.behavior = behavior;
+    //public Robot(IUpdated behavior)
+    //{
+    //    this.behavior = behavior;
+    //}
+
+    public Robot(RobotBehavior behavior){
+        this.behavior_2 = behavior;
     }
 
     protected void setTargetPosition(Point p) {

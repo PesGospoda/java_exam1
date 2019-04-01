@@ -24,7 +24,7 @@ public class GameVisualizer extends JPanel {
         this.robot = robot;
     }
 
-    private Robot robot = new Robot(new RobotA());
+    private Robot robot = new Robot(new RobotBehavior(a->RobotA.moveRobot(a)));
 
     private static Timer initTimer() {
         Timer timer = new Timer("events generator", true);
@@ -41,7 +41,8 @@ public class GameVisualizer extends JPanel {
         m_timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                robot.behavior.onModelUpdateEvent(robot);
+                robot.behavior_2.onUpdate.op(robot);
+                //robot.behavior.onModelUpdateEvent(robot);
             }
         }, 0, 10);
         addMouseListener(new MouseAdapter() {

@@ -15,6 +15,7 @@ public class RobotsProgram {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        var a = new Robot_Behaviors_Loader();
         SwingUtilities.invokeLater(() -> {
             MainApplicationFrame frame = new MainApplicationFrame();
             frame.pack();
