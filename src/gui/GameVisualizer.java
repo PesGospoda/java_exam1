@@ -1,5 +1,7 @@
 package gui;
 
+import log.Logger;
+
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Graphics;
@@ -20,6 +22,7 @@ public class GameVisualizer extends JPanel {
     }
 
     public void setRobot(Robot robot) {
+        Logger.debug("новый робот - " + robot.getClass().toString());
         robot.clone(this.robot);
         this.robot = robot;
     }
