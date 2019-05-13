@@ -10,6 +10,8 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -17,9 +19,15 @@ import javax.swing.JPanel;
 
 public class GameVisualizer extends JPanel {
     private final Timer m_timer = initTimer();
-
+    private List<MultiRobot> robots =  new ArrayList<>();
     public IRobot getRobot() {
         return robot;
+    }
+
+    public void addRobot(MultiRobot r){
+        robots.add(r);
+        r.setTarget(robot.targetPositionX(), robot.getTargetPositionY());
+        r.start();
     }
 
     public void setRobot(IRobot rob) {
@@ -53,6 +61,9 @@ public class GameVisualizer extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 robot.setTargeState(e.getPoint().x, e.getPoint().y);
+                for ( MultiRobot r: robots){
+                    r.setTarget(e.getPoint().x, e.getPoint().y);
+                }
                 repaint();
             }
         });
@@ -72,6 +83,10 @@ public class GameVisualizer extends JPanel {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
         drawRobot(g2d, round(robot.getRobotPositionX()), round(robot.getRobotPositionY()), robot.getRobotDirection());
+        for ( MultiRobot r: robots){
+            drawRobot(g2d, round(r.robot.getRobotPositionX()), round(r.robot.getRobotPositionY()), r.robot.getRobotDirection());
+        }
+        repaint();
         drawTarget(g2d, robot.targetPositionX(), robot.getTargetPositionY());
     }
 
@@ -86,16 +101,16 @@ public class GameVisualizer extends JPanel {
     private void drawRobot(Graphics2D g, int x, int y, double direction) {
         int robotCenterX = round(robot.getRobotPositionX());
         int robotCenterY = round(robot.getRobotPositionY());
-        AffineTransform t = AffineTransform.getRotateInstance(direction, robotCenterX, robotCenterY);
+        AffineTransform t = AffineTransform.getRotateInstance(direction, x, y);
         g.setTransform(t);
         g.setColor(Color.MAGENTA);
-        fillOval(g, robotCenterX, robotCenterY, 30, 10);
+        fillOval(g, x, y, 30, 10);
         g.setColor(Color.BLACK);
-        drawOval(g, robotCenterX, robotCenterY, 30, 10);
+        drawOval(g, x, y, 30, 10);
         g.setColor(Color.WHITE);
-        fillOval(g, robotCenterX + 10, robotCenterY, 5, 5);
+        fillOval(g, x + 10, y, 5, 5);
         g.setColor(Color.BLACK);
-        drawOval(g, robotCenterX + 10, robotCenterY, 5, 5);
+        drawOval(g, x + 10, y, 5, 5);
     }
 
     private void drawTarget(Graphics2D g, int x, int y) {

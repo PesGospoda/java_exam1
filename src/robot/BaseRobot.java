@@ -1,17 +1,14 @@
 package robot;
 
-import java.awt.*;
 
-public  abstract class BaseRobot implements IRobot {
-    public double m_robotPositionX = 100;// потом сделаю геттеры
-    public double m_robotPositionY = 100;
-    public double m_robotDirection = 0;
+public  abstract class BaseRobot extends Thread implements IRobot {
+    public volatile double m_robotPositionX = 100;// потом сделаю геттеры
+    public volatile double m_robotPositionY = 100;
+    public volatile double m_robotDirection = 0;
 
-    public int m_targetPositionX = 150;
-    public int m_targetPositionY = 100;
+    public volatile int m_targetPositionX = 150;
+    public volatile int m_targetPositionY = 100;
 
-    protected static final double maxVelocity = 0.1;
-    protected static final double maxAngularVelocity = 0.001;
 
     protected static double distance(double x1, double y1, double x2, double y2) {
         double diffX = x1 - x2;
@@ -33,14 +30,6 @@ public  abstract class BaseRobot implements IRobot {
         if (value > max)
             return max;
         return value;
-    }
-
-    public void clone(BaseRobot other){
-        m_robotPositionX = other.m_robotPositionX;
-        m_robotDirection = other.m_robotDirection;
-        m_robotPositionY = other.m_robotPositionY;
-        m_targetPositionX = other.m_targetPositionX;
-        m_targetPositionY = other.m_targetPositionY;
     }
 
     protected static double asNormalizedRadians(double angle) {

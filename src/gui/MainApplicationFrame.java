@@ -117,28 +117,50 @@ public class MainApplicationFrame extends JFrame {
 
         JMenu robotsMenu = createJMenu("Robots", KeyEvent.VK_Y, "robot option ");
         robotsMenu.add(createMenuItem("Standard", KeyEvent.VK_S, (event) -> gameWindow.getVisualizer().setRobot(new Robot())));
-        HashMap<String, IRobot> compiledRobots = loadFromStockDirectory();
+        HashMap<String, Class> compiledRobots = loadFromStockDirectory();
         for ( String key : compiledRobots.keySet() ) {
-            robotsMenu.add(createMenuItem(key.substring(0, key.length() - 6), KeyEvent.VK_S, (event) -> gameWindow.getVisualizer().setRobot(compiledRobots.get(key))));
+            robotsMenu.add(createMenuItem(key.substring(0, key.length() - 6), KeyEvent.VK_S, (event) -> {
+                try {
+                    gameWindow.getVisualizer().setRobot((IRobot) compiledRobots.get(key).newInstance() );
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }));
         }
-        //в лямбде надо наверное метод сделать который будет нужный файл открывать и из него робота пихать в сет робот
-        //robotsMenu.add(createMenuItem("With Bug", KeyEvent.VK_S, (event) -> gameWindow.getVisualizer().setRobot(new RobotB())));
-
-
         robotsMenu.add(createMenuItem("Smt else...", KeyEvent.VK_E, (event) -> gameWindow.getVisualizer().setRobot(chooseFile())));
+
+
+
+        JMenu addRobotsMenu = createJMenu("Add Robots", KeyEvent.VK_Y, "add robot ");
+        addRobotsMenu.add(createMenuItem("Standard", KeyEvent.VK_S, (event) -> gameWindow.getVisualizer().addRobot(new MultiRobot(new Robot(), 100))));
+        for ( String key : compiledRobots.keySet() ) {
+            addRobotsMenu.add(createMenuItem(key.substring(0, key.length() - 6), KeyEvent.VK_S, (event) -> {
+                try {
+                    gameWindow.getVisualizer().addRobot(new MultiRobot((BaseRobot)compiledRobots.get(key).newInstance(), 100));
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }));
+        }
+        addRobotsMenu.add(createMenuItem("Smt else...", KeyEvent.VK_E, (event) -> gameWindow.getVisualizer().addRobot(new MultiRobot((BaseRobot)chooseFile(), 100))));
 
 
         menuBar.add(lookAndFeelMenu);
         menuBar.add(testMenu);
         menuBar.add(systemMenu);
         menuBar.add(robotsMenu);
+        menuBar.add(addRobotsMenu);
         return menuBar;
     }
 
 
-    private HashMap<String, IRobot> loadFromStockDirectory() {
-        HashMap<String, IRobot> outDict= new HashMap<String, IRobot>();
-        IRobot myClass = null;
+    private HashMap<String, Class> loadFromStockDirectory() {
+        HashMap<String, Class> outDict= new HashMap<>();
+        Class myClass = null;
         File folder = new File("modes/");
         File[] listOfFiles = folder.listFiles();
         for (int i=0; i<listOfFiles.length;i++)
@@ -146,8 +168,8 @@ public class MainApplicationFrame extends JFrame {
             Logger.debug("open  - " + listOfFiles[i].getPath() + listOfFiles[i].getName());
             try {
                 MyLoader loader = new MyLoader(listOfFiles[i]);
-                Class clazz = Class.forName(listOfFiles[i].getName().substring(0, listOfFiles[i].getName().length() - 6), true, loader);
-                myClass = (IRobot) clazz.newInstance();
+                myClass = Class.forName(listOfFiles[i].getName().substring(0, listOfFiles[i].getName().length() - 6), true, loader);
+
             } catch (Exception e) {
                 Logger.error("super puper err");
                 e.printStackTrace();
