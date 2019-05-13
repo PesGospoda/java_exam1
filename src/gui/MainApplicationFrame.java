@@ -5,6 +5,9 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.HashMap;
 
 import javax.swing.*;
 
@@ -114,6 +117,10 @@ public class MainApplicationFrame extends JFrame {
 
         JMenu robotsMenu = createJMenu("Robots", KeyEvent.VK_Y, "robot option ");
         robotsMenu.add(createMenuItem("Standard", KeyEvent.VK_S, (event) -> gameWindow.getVisualizer().setRobot(new Robot())));
+        HashMap<String, IRobot> compiledRobots = loadFromStockDirectory();
+        for ( String key : compiledRobots.keySet() ) {
+            robotsMenu.add(createMenuItem(key.substring(0, key.length() - 6), KeyEvent.VK_S, (event) -> gameWindow.getVisualizer().setRobot(compiledRobots.get(key))));
+        }
         //в лямбде надо наверное метод сделать который будет нужный файл открывать и из него робота пихать в сет робот
         //robotsMenu.add(createMenuItem("With Bug", KeyEvent.VK_S, (event) -> gameWindow.getVisualizer().setRobot(new RobotB())));
 
@@ -126,6 +133,28 @@ public class MainApplicationFrame extends JFrame {
         menuBar.add(systemMenu);
         menuBar.add(robotsMenu);
         return menuBar;
+    }
+
+
+    private HashMap<String, IRobot> loadFromStockDirectory() {
+        HashMap<String, IRobot> outDict= new HashMap<String, IRobot>();
+        IRobot myClass = null;
+        File folder = new File("modes/");
+        File[] listOfFiles = folder.listFiles();
+        for (int i=0; i<listOfFiles.length;i++)
+        {
+            Logger.debug("open  - " + listOfFiles[i].getPath() + listOfFiles[i].getName());
+            try {
+                MyLoader loader = new MyLoader(listOfFiles[i]);
+                Class clazz = Class.forName(listOfFiles[i].getName().substring(0, listOfFiles[i].getName().length() - 6), true, loader);
+                myClass = (IRobot) clazz.newInstance();
+            } catch (Exception e) {
+                Logger.error("super puper err");
+                e.printStackTrace();
+            }
+            outDict.put(listOfFiles[i].getName(), myClass);
+        }
+        return outDict;
     }
 
 
