@@ -139,6 +139,7 @@ public class MainApplicationFrame extends JFrame {
             File file = fileopen.getSelectedFile();
             Logger.debug("open  - " + file.getPath() + file.getName());
             try {
+
                 MyLoader loader = new MyLoader(file);
                 Class clazz= Class.forName(file.getName().substring(0 ,file.getName().length() - 6),true, loader);
                 myClass = (IRobot) clazz.newInstance();
