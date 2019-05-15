@@ -82,9 +82,9 @@ public class GameVisualizer extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
-        drawRobot(g2d, round(robot.getRobotPositionX()), round(robot.getRobotPositionY()), robot.getRobotDirection());
+        drawRobot(g2d, round(robot.getRobotPositionX()), round(robot.getRobotPositionY()), robot.getRobotDirection(), robot.getColor());
         for ( MultiRobot r: robots){
-            drawRobot(g2d, round(r.robot.getRobotPositionX()), round(r.robot.getRobotPositionY()), r.robot.getRobotDirection());
+            drawRobot(g2d, round(r.robot.getRobotPositionX()), round(r.robot.getRobotPositionY()), r.robot.getRobotDirection(), robot.getColor());
         }
         repaint();
         drawTarget(g2d, robot.targetPositionX(), robot.getTargetPositionY());
@@ -98,12 +98,10 @@ public class GameVisualizer extends JPanel {
         g.drawOval(centerX - diam1 / 2, centerY - diam2 / 2, diam1, diam2);
     }
 
-    private void drawRobot(Graphics2D g, int x, int y, double direction) {
-        int robotCenterX = round(robot.getRobotPositionX());
-        int robotCenterY = round(robot.getRobotPositionY());
+    private void drawRobot(Graphics2D g, int x, int y, double direction, Color color) {
         AffineTransform t = AffineTransform.getRotateInstance(direction, x, y);
         g.setTransform(t);
-        g.setColor(Color.MAGENTA);
+        g.setColor(color);
         fillOval(g, x, y, 30, 10);
         g.setColor(Color.BLACK);
         drawOval(g, x, y, 30, 10);

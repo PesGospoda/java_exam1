@@ -5,7 +5,6 @@ import log.Logger;
 public class MultiRobot extends Thread {
     public BaseRobot robot;
     private int await;
-    private Boolean process = true;
 
     public MultiRobot(BaseRobot _robot, int _await ){
         robot = _robot;
@@ -20,7 +19,7 @@ public class MultiRobot extends Thread {
     @Override
     public void run() {
         Logger.debug("Start - " + getName());
-        while (process) {
+        while (true) {
             robot.onModelUpdateEvent();
             try {
                 sleep(await);
@@ -28,6 +27,6 @@ public class MultiRobot extends Thread {
                 e.printStackTrace();
             }
         }
-        Logger.debug("close - " + getName());
+        // Logger.debug("close - " + getName());
     }
 }

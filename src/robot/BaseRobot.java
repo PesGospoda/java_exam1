@@ -1,13 +1,27 @@
 package robot;
+import java.awt.Color;
 
+import java.util.Random;
 
-public  abstract class BaseRobot extends Thread implements IRobot {
-    public volatile double m_robotPositionX = 100;// потом сделаю геттеры
-    public volatile double m_robotPositionY = 100;
+public  abstract class BaseRobot  implements IRobot {
+    public volatile double m_robotPositionX ;// потом сделаю геттеры
+    public volatile double m_robotPositionY ;
     public volatile double m_robotDirection = 0;
 
     public volatile int m_targetPositionX = 150;
     public volatile int m_targetPositionY = 100;
+    private Color color;
+
+    public Color getColor(){
+        return color;
+    }
+
+    public BaseRobot(){
+        var r = new Random();
+        m_robotPositionY = r.nextInt(400);
+        m_robotPositionX = r.nextInt(400);
+        color = new Color((int)(Math.random() * 0x1000000));
+    }
 
 
     protected static double distance(double x1, double y1, double x2, double y2) {

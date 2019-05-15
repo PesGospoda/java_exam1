@@ -129,16 +129,13 @@ public class MainApplicationFrame extends JFrame {
                 }
             }));
         }
-        robotsMenu.add(createMenuItem("Smt else...", KeyEvent.VK_E, (event) -> gameWindow.getVisualizer().setRobot(chooseFile())));
-
-
-
+        //robotsMenu.add(createMenuItem("Smt else...", KeyEvent.VK_E, (event) -> gameWindow.getVisualizer().setRobot(chooseFile())));
         JMenu addRobotsMenu = createJMenu("Add Robots", KeyEvent.VK_Y, "add robot ");
-        addRobotsMenu.add(createMenuItem("Standard", KeyEvent.VK_S, (event) -> gameWindow.getVisualizer().addRobot(new MultiRobot(new Robot(), 100))));
+        addRobotsMenu.add(createMenuItem("Standard", KeyEvent.VK_S, (event) -> gameWindow.getVisualizer().addRobot(new MultiRobot(new Robot(), getAwait()))));
         for ( String key : compiledRobots.keySet() ) {
             addRobotsMenu.add(createMenuItem(key.substring(0, key.length() - 6), KeyEvent.VK_S, (event) -> {
                 try {
-                    gameWindow.getVisualizer().addRobot(new MultiRobot((BaseRobot)compiledRobots.get(key).newInstance(), 100));
+                    gameWindow.getVisualizer().addRobot(new MultiRobot((BaseRobot)compiledRobots.get(key).newInstance(), getAwait()));
                 } catch (InstantiationException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {
@@ -179,7 +176,18 @@ public class MainApplicationFrame extends JFrame {
         return outDict;
     }
 
-
+    private int getAwait() {
+        int await = 1;
+        try{
+            String gg = JOptionPane.showInputDialog("Please input await for new robot: ");
+            await = Integer.parseInt(gg);
+        } catch (HeadlessException e) {
+            Logger.error("Вводить нужно число.");
+        } catch (NumberFormatException e) {
+            Logger.error("Вводить нужно число.");
+        }
+        return await;
+    }
 
     private IRobot chooseFile(){
         JFileChooser fileopen = new JFileChooser();

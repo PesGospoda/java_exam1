@@ -1,4 +1,5 @@
 package robot;
+import java.awt.Color;
 
 public interface IRobot {
     double maxVelocity = 0.1;
@@ -11,7 +12,7 @@ public interface IRobot {
     double getRobotDirection();
     int targetPositionX();
     int getTargetPositionY();
-
+    Color getColor();
 
     void setRobotState(double R_x, double R_y, double R_d);
     void setTargeState(int T_x, int T_y);
